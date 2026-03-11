@@ -1,0 +1,19 @@
+# Node modules and build outputs
+node_modules/
+dist/
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+
+# Sensitive files
+*.key
+*.pem
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
