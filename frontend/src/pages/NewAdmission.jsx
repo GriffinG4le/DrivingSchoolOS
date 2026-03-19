@@ -5,6 +5,7 @@ import { Field, Input, Select } from '../components/Field.jsx';
 import { Button } from '../components/Button.jsx';
 import { formatKesFromCents } from '../lib/money.js';
 import { createAdmission, getCourses } from '../mock/db.js';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
 export function NewAdmission() {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ export function NewAdmission() {
   const [result, setResult] = useState(null);
 
   const selectedCourse = courses.find((c) => String(c.course_id) === String(courseId));
+
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <div style={{ display: 'grid', gap: 14, gridTemplateColumns: '1.1fr 0.9fr' }}>
@@ -71,7 +75,7 @@ export function NewAdmission() {
               style={{
                 background: '#fee2e2',
                 border: '1px solid #fecaca',
-                color: '#991b1b',
+                color: isDark ? '#fca5a5' : '#991b1b',
                 padding: 10,
                 borderRadius: 12,
                 fontSize: 13,
@@ -104,10 +108,10 @@ export function NewAdmission() {
 
       <Card title="Preview" subtitle="What staff will hand to the student.">
         <div style={{ display: 'grid', gap: 10 }}>
-          <div style={{ fontSize: 13, color: '#6b7280' }}>
+          <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
             Course fee:
           </div>
-          <div style={{ fontSize: 22, fontWeight: 950, letterSpacing: 0.2 }}>
+          <div style={{ fontSize: 22, fontWeight: 950, letterSpacing: 0.2, color: isDark ? '#f3f4f6' : '#111827' }}>
             {selectedCourse ? formatKesFromCents(selectedCourse.fee_amount) : '—'}
           </div>
 
@@ -126,7 +130,7 @@ export function NewAdmission() {
               <div style={{ fontSize: 12, color: '#374151', fontWeight: 800 }}>
                 Admission number (account reference)
               </div>
-              <div style={{ fontSize: 20, fontWeight: 950 }}>
+              <div style={{ fontSize: 20, fontWeight: 950, color: '#111827' }}>
                 {result.admission.admission_number}
               </div>
               <div style={{ fontSize: 12, color: '#6b7280' }}>
@@ -154,7 +158,7 @@ export function NewAdmission() {
               </div>
             </div>
           ) : (
-            <div style={{ fontSize: 13, color: '#6b7280' }}>
+            <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
               Create an admission to generate a real admission number.
             </div>
           )}
@@ -163,4 +167,3 @@ export function NewAdmission() {
     </div>
   );
 }
-

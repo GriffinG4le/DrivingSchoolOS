@@ -63,7 +63,7 @@ export function LivePayments() {
                 }}
               >
                 <div style={{ display: 'grid', gap: 2 }}>
-                  <div style={{ fontWeight: 950 }}>
+                  <div style={{ fontWeight: 950, color: '#111827' }}>
                     {formatKesFromCents(p.amount)}{' '}
                     <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 800 }}>
                       ({p.mpesa_receipt})
@@ -87,4 +87,3 @@ export function LivePayments() {
     </div>
   );
 }
-

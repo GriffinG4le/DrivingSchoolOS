@@ -1,4 +1,9 @@
+import { useTheme } from '../theme/ThemeProvider.jsx';
+
 export function Card({ title, subtitle, actions, children }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <div
       style={{
@@ -21,12 +26,12 @@ export function Card({ title, subtitle, actions, children }) {
         >
           <div>
             {title && (
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#111827' }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: isDark ? '#f3f4f6' : '#111827' }}>
                 {title}
               </div>
             )}
             {subtitle && (
-              <div style={{ fontSize: 13, color: '#6b7280', marginTop: 2 }}>
+            <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280', marginTop: 2 }}>
                 {subtitle}
               </div>
             )}
@@ -38,4 +43,3 @@ export function Card({ title, subtitle, actions, children }) {
     </div>
   );
 }
-

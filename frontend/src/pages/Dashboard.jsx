@@ -4,10 +4,14 @@ import { Button } from '../components/Button.jsx';
 import { Badge } from '../components/Badge.jsx';
 import { formatKesFromCents } from '../lib/money.js';
 import { getCourses, livePaymentFeed } from '../mock/db.js';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
 export function Dashboard() {
   const courses = getCourses();
   const payments = livePaymentFeed({ limit: 8 });
+
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <div style={{ display: 'grid', gap: 14 }}>
@@ -33,7 +37,7 @@ export function Dashboard() {
               <Button variant="ghost">Live Payments</Button>
             </Link>
           </div>
-          <div style={{ marginTop: 12, fontSize: 13, color: '#6b7280' }}>
+          <div style={{ marginTop: 12, fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
             For now this frontend uses mock data (stored in your browser). Later we’ll replace the mock
             functions with real API calls to your backend.
           </div>
@@ -56,13 +60,13 @@ export function Dashboard() {
                 }}
               >
                 <div style={{ display: 'grid' }}>
-                  <div style={{ fontWeight: 900 }}>{c.course_name}</div>
+                  <div style={{ fontWeight: 900, color: '#111827' }}>{c.course_name}</div>
                   <div style={{ fontSize: 12, color: '#6b7280' }}>
                     Duration: {c.duration_months || '—'} months
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontWeight: 900 }}>
+                  <div style={{ fontWeight: 900, color: '#111827' }}>
                     {formatKesFromCents(c.fee_amount)}
                   </div>
                 </div>
@@ -84,7 +88,7 @@ export function Dashboard() {
         }
       >
         {payments.length === 0 ? (
-          <div style={{ color: '#6b7280', fontSize: 13 }}>
+          <div style={{ color: isDark ? '#9ca3af' : '#6b7280', fontSize: 13 }}>
             No payments yet. Create an admission, then record a mock payment.
           </div>
         ) : (
@@ -104,13 +108,13 @@ export function Dashboard() {
                 }}
               >
                 <div style={{ display: 'grid' }}>
-                  <div style={{ fontWeight: 900 }}>
+                    <div style={{ fontWeight: 900, color: '#111827' }}>
                     {formatKesFromCents(p.amount)}{' '}
-                    <span style={{ color: '#6b7280', fontWeight: 700, fontSize: 12 }}>
+                      <span style={{ color: '#6b7280', fontWeight: 700, fontSize: 12 }}>
                       ({p.mpesa_receipt})
                     </span>
                   </div>
-                  <div style={{ fontSize: 12, color: '#6b7280' }}>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
                     Admission: {p.admission_number}
                   </div>
                 </div>
@@ -123,4 +127,3 @@ export function Dashboard() {
     </div>
   );
 }
-

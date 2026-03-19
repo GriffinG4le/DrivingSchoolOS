@@ -1,12 +1,17 @@
+import { useTheme } from '../theme/ThemeProvider.jsx';
+
 export function Field({ label, hint, children }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <label style={{ display: 'grid', gap: 6 }}>
       <div style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 13, fontWeight: 800, color: '#111827' }}>
+        <span style={{ fontSize: 13, fontWeight: 800, color: isDark ? '#f3f4f6' : '#111827' }}>
           {label}
         </span>
         {hint && (
-          <span style={{ fontSize: 12, color: '#6b7280' }}>
+          <span style={{ fontSize: 12, color: isDark ? '#9ca3af' : '#6b7280' }}>
             {hint}
           </span>
         )}
@@ -71,4 +76,3 @@ export function Select(props) {
     />
   );
 }
-

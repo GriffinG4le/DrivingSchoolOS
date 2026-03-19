@@ -6,6 +6,7 @@ import { Field, Input } from '../components/Field.jsx';
 import { Button } from '../components/Button.jsx';
 import { formatKesFromCents } from '../lib/money.js';
 import { feeSummary, recordPayment } from '../mock/db.js';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
 export function FeePage() {
   const { admissionNumber } = useParams();
@@ -19,10 +20,13 @@ export function FeePage() {
 
   const summary = useMemo(() => feeSummary(admission_number), [admission_number, refreshKey]);
 
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   if (!summary) {
     return (
       <Card title="Fee Summary" subtitle="Admission not found">
-        <div style={{ fontSize: 13, color: '#6b7280' }}>
+        <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
           No admission found for <code>{admission_number}</code>. Try searching, or create a new admission.
         </div>
       </Card>
@@ -36,7 +40,7 @@ export function FeePage() {
         subtitle={`${summary.full_name} • ${summary.course_name} • ${summary.admission_number}`}
         actions={
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <span style={{ fontSize: 11, color: '#6b7280' }}>
+            <span style={{ fontSize: 11, color: isDark ? '#9ca3af' : '#6b7280' }}>
               Enrolled on{' '}
               {summary.enrolled_at
                 ? new Date(summary.enrolled_at).toLocaleDateString()
@@ -71,12 +75,12 @@ export function FeePage() {
             )}
           </div>
 
-          <div style={{ marginTop: 4, fontWeight: 950, color: '#111827' }}>
+          <div style={{ marginTop: 4, fontWeight: 950, color: isDark ? '#f3f4f6' : '#111827' }}>
             Payments
           </div>
 
           {summary.payments.length === 0 ? (
-            <div style={{ fontSize: 13, color: '#6b7280' }}>No payments yet.</div>
+            <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>No payments yet.</div>
           ) : (
             <div style={{ display: 'grid', gap: 10 }}>
               {summary.payments.map((p) => (
@@ -94,7 +98,7 @@ export function FeePage() {
                   }}
                 >
                   <div style={{ display: 'grid', gap: 2 }}>
-                    <div style={{ fontWeight: 950 }}>{formatKesFromCents(p.amount)}</div>
+                    <div style={{ fontWeight: 950, color: '#111827' }}>{formatKesFromCents(p.amount)}</div>
                     <div style={{ fontSize: 12, color: '#6b7280' }}>
                       Receipt: {p.mpesa_receipt} • {new Date(p.transaction_time).toLocaleString()}
                     </div>
@@ -156,7 +160,7 @@ export function FeePage() {
               style={{
                 background: '#fee2e2',
                 border: '1px solid #fecaca',
-                color: '#991b1b',
+                color: isDark ? '#fca5a5' : '#991b1b',
                 padding: 10,
                 borderRadius: 12,
                 fontSize: 13,
@@ -187,6 +191,8 @@ export function FeePage() {
 }
 
 function Metric({ label, value }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   return (
     <div
       style={{
@@ -199,10 +205,9 @@ function Metric({ label, value }) {
       <div style={{ fontSize: 12, color: '#6b7280', fontWeight: 800 }}>
         {label}
       </div>
-      <div style={{ fontSize: 18, fontWeight: 950, letterSpacing: 0.2 }}>
+      <div style={{ fontSize: 18, fontWeight: 950, letterSpacing: 0.2, color: '#111827' }}>
         {value}
       </div>
     </div>
   );
 }
-

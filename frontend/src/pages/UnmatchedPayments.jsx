@@ -57,7 +57,7 @@ function UnmatchedRow({ payment, onAssigned }) {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
         <div style={{ display: 'grid', gap: 2 }}>
-          <div style={{ fontWeight: 950 }}>
+          <div style={{ fontWeight: 950, color: '#111827' }}>
             {formatKesFromCents(payment.amount)}{' '}
             <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 800 }}>
               ({payment.mpesa_receipt})
@@ -117,4 +117,3 @@ function UnmatchedRow({ payment, onAssigned }) {
     </div>
   );
 }
-

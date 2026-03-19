@@ -53,7 +53,7 @@ export function StudentSearch() {
                 }}
               >
                 <div style={{ display: 'grid', gap: 2 }}>
-                  <div style={{ fontWeight: 950 }}>
+                  <div style={{ fontWeight: 950, color: '#111827' }}>
                     {r.full_name}{' '}
                     <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>
                       ({r.admission_number})
@@ -89,4 +89,3 @@ export function StudentSearch() {
     </div>
   );
 }
-

@@ -4,6 +4,7 @@ import { Field, Input } from '../components/Field.jsx';
 import { Button } from '../components/Button.jsx';
 import { formatKesFromCents } from '../lib/money.js';
 import { createCourse, getCourses } from '../mock/db.js';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
 export function CoursesPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -13,6 +14,9 @@ export function CoursesPage() {
   const [fee, setFee] = useState('');
   const [duration, setDuration] = useState('');
   const [error, setError] = useState('');
+
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <div style={{ display: 'grid', gap: 14, gridTemplateColumns: '1.1fr 0.9fr' }}>
@@ -36,20 +40,20 @@ export function CoursesPage() {
               }}
             >
               <div style={{ display: 'grid' }}>
-                <div style={{ fontWeight: 900 }}>{c.course_name}</div>
+                <div style={{ fontWeight: 900, color: '#111827' }}>{c.course_name}</div>
                 <div style={{ fontSize: 12, color: '#6b7280' }}>
                   Duration: {c.duration_months || '—'} months
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontWeight: 900 }}>
+                <div style={{ fontWeight: 900, color: '#111827' }}>
                   {formatKesFromCents(c.fee_amount)}
                 </div>
               </div>
             </div>
           ))}
           {courses.length === 0 && (
-            <div style={{ fontSize: 13, color: '#6b7280' }}>
+            <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
               No courses yet. Add at least one, then use it during admission.
             </div>
           )}
@@ -113,7 +117,7 @@ export function CoursesPage() {
               style={{
                 background: '#fee2e2',
                 border: '1px solid #fecaca',
-                color: '#991b1b',
+                color: isDark ? '#fca5a5' : '#991b1b',
                 padding: 10,
                 borderRadius: 12,
                 fontSize: 13,
@@ -130,4 +134,3 @@ export function CoursesPage() {
     </div>
   );
 }
-

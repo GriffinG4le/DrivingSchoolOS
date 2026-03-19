@@ -16,6 +16,7 @@ export function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -45,7 +46,7 @@ export function Layout() {
             >
               Student Fee Tracker
             </div>
-            <div style={{ fontSize: 13, color: '#6b7280' }}>
+            <div style={{ fontSize: 13, color: isDark ? '#9ca3af' : '#6b7280' }}>
               Admin dashboard (mock data for now)
             </div>
           </div>
@@ -71,7 +72,7 @@ export function Layout() {
               href="https://developer.safaricom.co.ke/"
               target="_blank"
               rel="noreferrer"
-              style={{ fontSize: 13, color: '#374151' }}
+              style={{ fontSize: 13, color: isDark ? '#d1d5db' : '#374151' }}
             >
               Daraja docs
             </a>
@@ -118,4 +119,3 @@ export function Layout() {
     </div>
   );
 }
-
