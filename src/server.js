@@ -794,11 +794,17 @@ app.post('/exam-registrations', requireAuth, requireRole('SCHOOL_ADMIN', 'SECRET
   }
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+module.exports = app;
 
-server.on('error', (err) => {
-  console.error('Server failed to start:', err);
-});
+// Local/dev: run as a normal server.
+// Vercel: imports the app as a Serverless Function (no listen()).
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+
+  server.on('error', (err) => {
+    console.error('Server failed to start:', err);
+  });
+}
 
