@@ -4,7 +4,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "db:init": "node scripts/init-db.js"
+    "db:init": "node scripts/init-db.js",
+    "daraja:register:c2b": "node scripts/daraja-register-c2b.js"
   },
   "keywords": [],
   "author": "",

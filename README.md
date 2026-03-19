@@ -35,3 +35,19 @@ This uses `schema.sql`.
 ```bash
 npm start
 ```
+
+## Daraja (M-Pesa) C2B setup
+This API already exposes:
+- `POST /mpesa/c2b/validation`
+- `POST /mpesa/c2b/confirmation`
+
+To register these URLs with Safaricom Daraja (so they start receiving callbacks):
+1. Set the Daraja env vars in `.env` (see `.env.example`), especially:
+   - `DARAJA_CONSUMER_KEY`, `DARAJA_CONSUMER_SECRET`
+   - `DARAJA_SHORTCODE`
+   - `DARAJA_VALIDATION_URL`, `DARAJA_CONFIRMATION_URL`
+2. Run:
+
+```bash
+npm run daraja:register:c2b
+```
